@@ -6,6 +6,14 @@ This is an end-to-end tool that can read `.ipynb` files and translate all Markdo
 
 **Input**: A directory inside which `.ipynb` files will be translated asynchronously, origin language, target language.
 
-**Output**: A directory with all `ipynb` files translated.
+**Output**: Tranlated `.ipynb` files added to the input directory.
 
-## Installation
+## How to Use
+
+```bash
+  conda create -n jupyter-translator python=3.10 -y
+  conda activate jupyter-translator
+  pip install -r requirements.txt
+  cd /path/to/JupyterTranslator
+  python main.py /path/to/the/input/directory
+```
