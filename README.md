@@ -10,6 +10,10 @@ This is an end-to-end tool that can read `.ipynb` files and translate all Markdo
 
 ## How to Use
 
+First, you should configure the API Key for the LLM. Official instructions are [here](https://help.aliyun.com/zh/model-studio/developer-reference/configure-api-key-through-environment-variables?spm=0.0.0.i0).
+
+Then, run the following commands.
+
 ```bash
   conda create -n jupyter-translator python=3.10 -y
   conda activate jupyter-translator
