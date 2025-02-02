@@ -11,7 +11,7 @@ def find_ipynb_files(root_dir):
                 ipynb_files.append(os.path.join(dirpath, filename))
     return ipynb_files
 
-def process_file(file_path, origin_language="English", target_language="Chinese", model_name="qwen-turbo"):
+def process_file(file_path, origin_language="English", target_language="Chinese", model_name="qwen-max"):
     translator = JupyterTranslator(origin_language, target_language, model_name)
     try:
         translator.read_ipynb(file_path)
