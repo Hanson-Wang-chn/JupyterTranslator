@@ -22,7 +22,7 @@ def process_file(file_path, origin_language="English", target_language="Chinese"
         name_part, ext = os.path.splitext(base_name)
         output_file = os.path.join(dir_name, f"{name_part}_translated{ext}")
         translator.generate_ipynb(output_file)
-        print(f"已完成处理文件: {file_path}")
+        # print(f"已完成处理文件: {file_path}")
     except Exception as e:
         print(f"处理文件 {file_path} 时出错: {e}")
 
@@ -42,7 +42,7 @@ def main():
 
     print(f"共找到 {len(ipynb_files)} 个 .ipynb 文件，开始处理...")
 
-    with ThreadPoolExecutor(max_workers=20) as executor:
+    with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [executor.submit(process_file, file_path, origin_language=args.origin, target_language=args.target) for file_path in ipynb_files]
         for future in tqdm(futures, desc="Processing .ipynb files", unit="file"):
             future.result()
