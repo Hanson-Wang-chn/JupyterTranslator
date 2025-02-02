@@ -74,25 +74,29 @@ class JupyterTranslator:
             f"Make sure the output format is exactly the same as the input format. "
         )
 
-        try:
-            completion = client.chat.completions.create(
-                model=model_name,
-                messages=[
-                    {
-                        'role': 'system',
-                        'content': 'You are an academic expert with specialized knowledge in various fields.'
-                    },
-                    {
-                        'role': 'user',
-                        'content': prompt
-                    }
-                ]
-            )
-            return completion.choices[0].message.content
-
-        except Exception as e:
-            error_message = (
-                f"错误信息：{e}\n请参考文档：https://help.aliyun.com/zh/model-studio/developer-reference/error-code"
-            )
-            print(error_message)
-            return str(e)
+        max_retries = 10
+        for attempt in range(max_retries):
+            try:
+                completion = client.chat.completions.create(
+                    model=model_name,
+                    messages=[
+                        {
+                            'role': 'system',
+                            'content': 'You are an academic expert with specialized knowledge in various fields.'
+                        },
+                        {
+                            'role': 'user',
+                            'content': prompt
+                        }
+                    ]
+                )
+                return completion.choices[0].message.content
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    print(f"请求失败，正在进行第 {attempt + 2} 次重试... 错误信息：{e}")
+                else:
+                    error_message = (
+                        f"错误信息：{e}\n请参考文档：https://help.aliyun.com/zh/model-studio/developer-reference/error-code"
+                    )
+                    print(error_message)
+                    return str(e)
